@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Ritchie Macapinlac"]
   spec.email         = ["rsmacapinlac@boogienet.com"]
   spec.summary       = %q{go-matsuoka is a command-line resource manager}
-  # spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.description   = %q{go-matsuoka is a command-line resource manager. It runs inside an IRB.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
