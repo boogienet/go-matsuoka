@@ -5,6 +5,14 @@ module GoMatsuoka
       @_log_file = File.join GoMatsuoka.data_dir, "log", "#{GoMatsuoka.env}.log"
       @_data_file = File.join GoMatsuoka.data_dir, "#{GoMatsuoka.env}.sqlite3"
     end
+    
+    def logger
+      @_logger ||= Logger.new STDOUT
+    end
+    def logger=(logger)
+      @_logger = logger
+    end
+
     def log_file
       @_log_file
     end

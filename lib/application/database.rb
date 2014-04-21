@@ -11,7 +11,7 @@ module GoMatsuoka
           :pool => 5,
           :timeout => 5000,
         }
-        ActiveRecord::Base.logger = Logger.new STDOUT
+        ActiveRecord::Base.logger = configuration.logger 
         ActiveRecord::Base.establish_connection(dbconfig)
       end
     end

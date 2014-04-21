@@ -17,6 +17,7 @@ module GoMatsuoka
     end
 
     def load_models
+      require 'models/resource_type'
       require 'models/resource'
     end
   end

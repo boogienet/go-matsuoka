@@ -1,6 +1,5 @@
 require "bundler/gem_tasks"
-
-# require "tasks/database"
+require 'active_record'
 load 'lib/gomatsuoka.rb'
 
 namespace :db do
@@ -17,5 +16,8 @@ namespace :db do
     puts migrations_dir
     ActiveRecord::Migration.verbose = true
     ActiveRecord::Migrator.migrate migrations_dir
+  end
+  task :drop => :configure_connection do
+    ActiveRecord::Tasks::DatabaseTasks.drop_all
   end
 end
