@@ -17,8 +17,13 @@ module GoMatsuoka
     end
 
     def load_models
+      # TODO: Need to make this read all the rb files and load everything automatically
       require 'models/resource_type'
       require 'models/resource'
+      require 'models/project'
+      require 'models/project_type'
+      require 'models/planned_commitment'
+      require 'models/actual'
     end
   end
 end
