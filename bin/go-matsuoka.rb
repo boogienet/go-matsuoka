@@ -1,14 +1,15 @@
 #!/usr/bin/env ruby
 
-require 'gomatsuoka'
+# require 'gomatsuoka'
+require 'console'
+
 require 'optparse'
 require 'irb'
 require 'irb/completion'
 
-a = GoMatsuoka::Application.new
-puts "Application #{a} configured? #{a.configured?}"
-puts "Application #{a} initialized? #{a.initialized?}"
-
+#app = GoMatsuoka::Application.new
+#puts "Application #{app} configured? #{app.configured?}"
+#puts "Application #{app} initialized? #{app.initialized?}"
 options = {}
 OptionParser.new do |opts|
   opts.banner = "Usage: go-matsuoka [options]"
@@ -19,5 +20,4 @@ OptionParser.new do |opts|
 
 end.parse!
 
-@console = IRB
-@console.start
+GoMatsuoka::Console._start
