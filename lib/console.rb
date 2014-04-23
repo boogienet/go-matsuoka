@@ -10,8 +10,14 @@ module GoMatsuoka
       def app=(a)
         @_app = a
       end
-      
+
+      def import_projects(file)
+        f = File.open(file)
+        f
+      end
+
       def _start
+        Ripl.config[:prompt] = lambda { "#{Dir.pwd} [#{GoMatsuoka.env}] > " }
         Ripl.start :binding => binding
       end
     end
