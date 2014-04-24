@@ -23,6 +23,7 @@ module GoMatsuoka
         source = obj
 
         puts "source: #{source.class} to destination: #{dest.class}"
+        source.planned_commitments(dest.class.to_s.downcase.to_sym => dest)
       end
     end
   end
