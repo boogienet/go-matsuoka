@@ -1,3 +1,4 @@
+test/data.yml
 *.gem
 *.rbc
 .bundle

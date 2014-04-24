@@ -11,6 +11,11 @@ module GoMatsuoka
         super
         @_app = GoMatsuoka::Application.new
         @_resources = Hash.new
+
+        # build the instance variables for resources and active projects
+        setup
+      end
+      def setup
         build_resources
         build_active_projects
       end
@@ -34,9 +39,11 @@ module GoMatsuoka
       end
       def build_active_projects
         Project.all.each do |project|
-          project_short_name = project.short_name.downcase
-          self.class.send(:attr_accessor, project_short_name)
-          instance_variable_set("@#{project_short_name}", project)
+          unless project.short_name.nil?
+            project_short_name = project.short_name.downcase
+            self.class.send(:attr_accessor, project_short_name)
+            instance_variable_set("@#{project_short_name}", project)
+          end
         end
       end
       def _run_me

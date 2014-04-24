@@ -3,7 +3,10 @@ class Resource < ActiveRecord::Base
   belongs_to :resource_type
 
   has_many :planned_commitments
-  has_many :projects, :through => :planned_commitments
+  has_many :planned_projects, 
+    :through => :planned_commitments, 
+    :class_name => "Project",
+    :source => :project
 
   has_many :actuals
 end

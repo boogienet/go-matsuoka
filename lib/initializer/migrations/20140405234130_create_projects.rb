@@ -6,7 +6,7 @@ class CreateProjects < ActiveRecord::Migration
       t.string :name
       t.string :short_name
       t.date :start_date
-      t.integer :duration_in_days
+      t.date :end_date
       t.integer :working_days
       t.text :wbs
     end

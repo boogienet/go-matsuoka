@@ -19,6 +19,10 @@ module GoMatsuoka
       # allows you to run a command that looks like:
       # Helper.add resource, to=>:project, :at=>80%
       def self.add (obj, params)
+        dest = params[:to]
+        source = obj
+
+        puts "source: #{source.class} to destination: #{dest.class}"
       end
     end
   end
