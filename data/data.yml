@@ -1,0 +1,37 @@
+---
+project:
+ - name: "Dita Exchange 3.6 Upgrade"
+   short_name: DX36Upgrade
+   start_date: May 1, 2014
+   duration_in_days: 56
+ - name: "Customer Business Portal Project (CBPP)"
+   short_name: CBPP
+   start_date: Jan 1, 2013
+   duration_in_days: 551
+ - name: "Hub Release 20"
+   short_name: HUBR20
+   start_date: April 1, 2014
+   duration_in_days: 60
+resource:
+ - name: "Daniel Jackson"
+   nickname: dan
+ - name: "Christian Pablo"
+   nickname: christian
+ - name: "William Ma"
+   nickname: will
+ - name: "Abraham Huh"
+   nickname: abraham
+ - name: "Doug Wong"
+   nickname: doug
+ - name: "Andrew McDonald"
+   nickname: andrew
+ - name: "Frank Sandrin"
+   nickname: frank
+ - name: "Morena Beaulieu"
+   nickname: morena
+ - name: "Jennifer Lamb"
+   nickname: jen
+ - name: "Leanne Hutchins"
+   nickname: leanne
+ - name: "Amanda Healey"
+   nickname: amanda
