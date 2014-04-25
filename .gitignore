@@ -1,4 +1,6 @@
 test/data.yml
+test/projects.yml
+test/resources.yml
 *.gem
 *.rbc
 .bundle

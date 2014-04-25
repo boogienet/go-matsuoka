@@ -27,4 +27,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "activerecord"
   spec.add_dependency "sqlite3"
   spec.add_dependency "business_time"
+  spec.add_dependency "libxml-ruby"
 end

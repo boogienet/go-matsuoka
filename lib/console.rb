@@ -3,6 +3,7 @@ require 'ripl'
 require 'rb-readline'
 
 require 'console/helper'
+require 'console/generator'
 
 module GoMatsuoka
   module Console
@@ -18,6 +19,9 @@ module GoMatsuoka
       def setup
         build_resources
         build_active_projects
+      end
+      def generate
+        Generator
       end
       def help_me
         Helper
