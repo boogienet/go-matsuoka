@@ -1,18 +1,16 @@
-load "gomatsuoka.rb"
-
 require 'ripl'
+require 'hirb'
 require 'rb-readline'
-
-load "console/helper.rb"
-load "console/generator.rb"
 
 module GoMatsuoka
   module Console
-
-
     class << self
       def initialize
         super
+
+        # load the necessary libraries
+        reload!
+
         @_app = GoMatsuoka::Application.new
         @_resources = Hash.new
 
@@ -23,6 +21,7 @@ module GoMatsuoka
         @_app = nil
         load "gomatsuoka.rb"
         load "console/helper.rb"
+        load "console/displayer.rb"
         load "console/generator.rb"
       end
       def setup
@@ -66,6 +65,7 @@ module GoMatsuoka
         self.initialize
         Ripl.config[:prompt] = lambda { "#{Dir.pwd} [#{GoMatsuoka.env}] > " }
         Ripl.start :binding => binding
+        Hirb.enable
       end
     end
   end

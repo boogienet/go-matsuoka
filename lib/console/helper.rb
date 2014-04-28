@@ -17,7 +17,7 @@ module GoMatsuoka
       end
 
       def self.export (model, params)
-        model = model.singularize
+        model = model.camelize.singularize
         file_name = params[:to]
         data = Hash.new
         data[model] = []
