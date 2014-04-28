@@ -6,8 +6,8 @@ module GoMatsuoka
   class Application
     autoload :Database, 'application/database'
 
-    attr_accessor :configuration, :initializer
-
+    attr_accessor :configuration, :initializer, :id
+    attr_accessor :app_id
 
     def initialize()
       super()
@@ -20,7 +20,6 @@ module GoMatsuoka
       @configured = true if !@initializer.nil?
       @initialized = true if !@configuration.nil?
     end
-
 
     def testing
       r = Resource.new

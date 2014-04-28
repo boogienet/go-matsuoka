@@ -1,5 +1,5 @@
 require "gomatsuoka/version"
-require "application"
+load "application.rb"
 
 module GoMatsuoka
   class << self

@@ -1,12 +1,15 @@
-require 'gomatsuoka'
+load "gomatsuoka.rb"
+
 require 'ripl'
 require 'rb-readline'
 
-require 'console/helper'
-require 'console/generator'
+load "console/helper.rb"
+load "console/generator.rb"
 
 module GoMatsuoka
   module Console
+
+
     class << self
       def initialize
         super
@@ -15,6 +18,12 @@ module GoMatsuoka
 
         # build the instance variables for resources and active projects
         setup
+      end
+      def reload!
+        @_app = nil
+        load "gomatsuoka.rb"
+        load "console/helper.rb"
+        load "console/generator.rb"
       end
       def setup
         build_resources
