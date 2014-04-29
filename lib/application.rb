@@ -22,11 +22,6 @@ module GoMatsuoka
       @initialized = true if !@initializer.nil?
     end
 
-    def testing
-      r = Resource.new
-      puts r
-    end
-
     def configured?
       @configured
     end

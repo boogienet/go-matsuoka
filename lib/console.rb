@@ -8,6 +8,9 @@ module GoMatsuoka
       def initialize
         super
 
+        # http://tagaholic.me/2009/03/13/hirb-irb-on-the-good-stuff.html
+        # http://stackoverflow.com/questions/1731826/ruby-configure-irb-to-pretty-inspect-by-default
+
         # load the necessary libraries
         reload!
 
@@ -65,7 +68,6 @@ module GoMatsuoka
         self.initialize
         Ripl.config[:prompt] = lambda { "#{Dir.pwd} [#{GoMatsuoka.env}] > " }
         Ripl.start :binding => binding
-        Hirb.enable
       end
     end
   end
