@@ -1,3 +1,4 @@
+require 'csv'
 require 'yaml'
 require 'active_support'
 
@@ -9,10 +10,18 @@ module GoMatsuoka
       def self.import (model_param, params)
         model = model_param.camelize.singularize
         file_name = params[:from]
-        data = YAML.load_file(file_name)
-        data[model].each do |m|
-          obj = Object::const_get(model).find_or_create_by(m)
-          obj.save
+        if File.extname(file_name).include?('yml')
+          data = YAML.load_file(file_name)
+          data[model].each do |m|
+            obj = Object::const_get(model).find_or_create_by(m)
+            obj.save
+          end
+        end
+        if File.extname(file_name).include?('csv')
+          CSV.foreach(file_name, :headers=>true) do |line|
+            obj = Object::const_get(model).find_or_create_by(line.to_hash)
+            obj.save
+          end
         end
       end
 

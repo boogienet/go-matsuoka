@@ -48,8 +48,8 @@ module GoMatsuoka
       end
       def build_resources
         Resource.all.each do |resource|
-          self.class.send(:attr_accessor, resource.nickname)
-          instance_variable_set("@#{resource.nickname}", resource)
+          self.class.send(:attr_accessor, resource.short_name)
+          instance_variable_set("@#{resource.short_name}", resource)
         end
       end
       def build_active_projects
