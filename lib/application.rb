@@ -1,13 +1,12 @@
 require 'configuration'
-require 'initializer'
+load 'initializer.rb'
 
 module GoMatsuoka
 
   class Application
     autoload :Database, 'application/database'
 
-    attr_accessor :configuration, :initializer, :id
-    attr_accessor :app_id
+    attr_accessor :configuration, :initializer
 
     def initialize()
       super()
@@ -15,10 +14,12 @@ module GoMatsuoka
       @initialized = false
 
       @configuration = GoMatsuoka::Configuration.new
-      @initializer = GoMatsuoka::Initializer.new(@configuration)
+      if !@configuration.nil?
+        @initializer = GoMatsuoka::Initializer.new(@configuration)
+        @configured = true
+      end
 
-      @configured = true if !@initializer.nil?
-      @initialized = true if !@configuration.nil?
+      @initialized = true if !@initializer.nil?
     end
 
     def testing
