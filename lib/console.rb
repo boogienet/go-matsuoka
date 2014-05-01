@@ -26,8 +26,11 @@ module GoMatsuoka
         load "console/helper.rb"
         load "console/displayer.rb"
         load "console/generator.rb"
+
+        # setup
       end
       def setup
+        build_resource_types
         build_resources
         build_active_projects
       end
@@ -45,6 +48,12 @@ module GoMatsuoka
       end
       def app=(a)
         @_app = a
+      end
+      def build_resource_types
+        ResourceType.all.each do |resource_type|
+          self.class.send(:attr_accessor, resource_type.short_name)
+          instance_variable_set("@#{resource_type.short_name}", resource_type)
+        end
       end
       def build_resources
         Resource.all.each do |resource|
