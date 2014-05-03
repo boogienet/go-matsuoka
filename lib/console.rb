@@ -21,7 +21,7 @@ module GoMatsuoka
         load "console/utility.rb"
         load "console/displayer.rb"
         load "console/generator.rb"
-        @_app = GoMatsuoka::Application.new 
+        @_app = GoMatsuoka::Application.new
         setup
       end
       def setup
@@ -42,16 +42,16 @@ module GoMatsuoka
         @_app ||= GoMatsuoka::Application.new
       end
       def app=(a)
-        @_app = a
+        @app = a
       end
-      
+
       # create an instance variable for each object from the short name
       def build_easy_access(clss)
         clss.active.each do |object_instance|
           if object_instance.respond_to?("short_name=")
             unless object_instance.short_name.empty?
               short_name = object_instance.short_name
-              self.class.send(:attr_accessor, short_name) 
+              self.class.send(:attr_accessor, short_name)
               instance_variable_set("@#{short_name}", object_instance)
             end
           end

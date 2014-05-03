@@ -35,7 +35,29 @@ class Resource < ActiveRecord::Base
     projects.where("end_date < ?", Date.today)
   end
 
-  def commitment(*params)
+  def commited?(params = Date.today)
+    if params.is_a?(Hash)
+
+    end
+    if params.is_a?(Date)
+      return commited_on? params
+    end
+    if params.is_a?(String)
+      return commited_on? Date.parse(params)
+    end
   end
 
+  def commited_on?(params)
+    commitment = 0
+    service_commitment = 0
+    project_commitment = 0
+    services.active_on?(params).each do |service|
+      service_commitment += service.service_commitments.find_by_resorce_id(id).effort
+    end
+    projects.active_on?(params).each do |project|
+      project_commitment += project.planned_commitments.find_by_resource_id(id).effort
+    end
+    commitment = service_commitment + project_commitment
+    {:total_commitment=>commitment, :services=>service_commitment, :projects=>project_commitment}
+  end
 end

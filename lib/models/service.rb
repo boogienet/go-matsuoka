@@ -16,6 +16,9 @@ class Service < ActiveRecord::Base
     # end date is before today, and start date is after today
     where("end_date > ? and start_date < ?", Date.today, Date.today)
   }
+  scope :active_on?, ->(whichday) {
+    where("end_date > ? and start_date < ?", whichday, whichday)
+  }
 
   def update_calculated_fields
     unless self.short_name.nil? || self.short_name.empty?

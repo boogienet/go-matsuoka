@@ -11,9 +11,12 @@ class Project < ActiveRecord::Base
     :class_name => "Resource",
     :source => :resource
 
-  scope :active, -> { 
+  scope :active, -> {
     # end date is before today, and start date is after today
     where("end_date > ? and start_date < ?", Date.today, Date.today)
+  }
+  scope :active_on?, ->(whichday) {
+    where("end_date > ? and start_date < ?", whichday, whichday)
   }
   scope :planned, -> {
     where("start_date > ?", Date.today)
@@ -32,7 +35,7 @@ class Project < ActiveRecord::Base
       self.start_date = Date.parse(new_start_date)
     end
     self.end_date = working_days.business_days.after(self.start_date)
-    save 
+    save
   end
 
   def update_calculated_fields
@@ -49,11 +52,11 @@ class Project < ActiveRecord::Base
     man_days = 0
     planned_commitments.each do |commitment|
       unless commitment.resource.end_date.nil?
-        project_working_days = project_working_days -commitment.resource.end_date.business_days_until(end_date)
+        project_working_days = project_working_days - commitment.resource.end_date.business_days_until(end_date)
       end
-      man_days = man_days + (project_working_days * (commitment.duration / 100) * (commitment.effort / 100)) 
+      man_days = man_days + (project_working_days * (commitment.duration / 100) * (commitment.effort / 100))
     end
-    man_days 
+    man_days
   end
 
   def actual_effort
