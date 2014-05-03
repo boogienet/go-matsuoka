@@ -5,6 +5,8 @@ class CreateActuals < ActiveRecord::Migration
     create_table :actuals do |t|
       t.integer :resource_id
       t.integer :project_id
+      t.string :wbs
+      t.string :key 
       t.float :hours
     end
   end

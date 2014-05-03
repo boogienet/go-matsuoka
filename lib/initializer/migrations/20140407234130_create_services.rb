@@ -1,14 +1,14 @@
 require 'active_record'
 
-class CreateResources < ActiveRecord::Migration
+class CreateServices < ActiveRecord::Migration
   def change
-    create_table :resources do |t|
-      t.integer :resource_type_id
+    create_table :services do |t|
       t.string :name
       t.string :short_name
-      t.string :key
       t.date :start_date
       t.date :end_date
+      t.integer :working_days
+      t.text :wbs
     end
   end
 end

@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-# require 'gomatsuoka'
+load 'gomatsuoka.rb'
 require 'console'
 
 require 'optparse'
@@ -14,8 +14,8 @@ options = {}
 OptionParser.new do |opts|
   opts.banner = "Usage: go-matsuoka [options]"
 
-  opts.on("-c", "--config FILE", "Configuration file") do |config|
-    options[:config_file] = config
+  opts.on("-e", "--environment ENV", "Environment to run go-matsuoka in (defaults to development)") do |environment|
+    GoMatsuoka.env = environment
   end
 
 end.parse!

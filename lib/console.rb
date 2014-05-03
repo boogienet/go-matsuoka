@@ -14,65 +14,50 @@ module GoMatsuoka
         # load the necessary libraries
         reload!
 
-        @_app = GoMatsuoka::Application.new
-        @_resources = Hash.new
-
-        # build the instance variables for resources and active projects
-        setup
       end
       def reload!
-        @_app = nil
         load "gomatsuoka.rb"
         load "console/helper.rb"
+        load "console/utility.rb"
         load "console/displayer.rb"
         load "console/generator.rb"
-
-        # setup
+        @_app = GoMatsuoka::Application.new 
+        setup
       end
       def setup
-        build_resource_types
-        build_resources
-        build_active_projects
+        build_easy_access(Resource)
+        build_easy_access(Project)
+        build_easy_access(Service)
+        nil
       end
+
       def generate
         Generator
       end
       def help_me
         Helper
       end
-      def resources
-        @_resources
-      end
+
       def app
         @_app ||= GoMatsuoka::Application.new
       end
       def app=(a)
         @_app = a
       end
-      def build_resource_types
-        ResourceType.all.each do |resource_type|
-          self.class.send(:attr_accessor, resource_type.short_name)
-          instance_variable_set("@#{resource_type.short_name}", resource_type)
-        end
-      end
-      def build_resources
-        Resource.all.each do |resource|
-          self.class.send(:attr_accessor, resource.short_name)
-          instance_variable_set("@#{resource.short_name}", resource)
-        end
-      end
-      def build_active_projects
-        Project.all.each do |project|
-          unless project.short_name.nil?
-            project_short_name = project.short_name.downcase
-            self.class.send(:attr_accessor, project_short_name)
-            instance_variable_set("@#{project_short_name}", project)
+      
+      # create an instance variable for each object from the short name
+      def build_easy_access(clss)
+        clss.active.each do |object_instance|
+          if object_instance.respond_to?("short_name=")
+            unless object_instance.short_name.empty?
+              short_name = object_instance.short_name
+              self.class.send(:attr_accessor, short_name) 
+              instance_variable_set("@#{short_name}", object_instance)
+            end
           end
         end
       end
-      def _run_me
-        help_me.import "projects", :from=>"data/data.yml"
-      end
+
       def _start
         self.initialize
         Ripl.config[:prompt] = lambda { "#{Dir.pwd} [#{GoMatsuoka.env}] > " }

@@ -18,6 +18,7 @@ module GoMatsuoka
         xml_data = "#{dir}#{File::SEPARATOR}data.xml"
         document.save(xml_data, :indent=>true, :encoding => LibXML::XML::Encoding::UTF_8)
         FileUtils.cp_r "#{File.dirname(__FILE__)}/timeline/timeline.html", dir
+        puts dir
       end
     end
   end

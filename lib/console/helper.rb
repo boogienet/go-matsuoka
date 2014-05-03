@@ -6,16 +6,32 @@ module GoMatsuoka
   module Console
     class Helper
       def self.import_actuals(params)
+
+        # import everything wholesale
         data_file = params[:from]
         CSV.foreach(data_file, :headers=>true) do |entry|
-          project = Project.find_by_wbs entry["wbs"]
-          resource = Resource.find_by_key entry["key"]
-          puts "#{entry["wbs"]} #{entry["key"]} #{project} #{resource}"
-          unless project.nil? || resource.nil?
-            a = Actual.new(:resource=>resource, :project=>project, :hours=>entry["hours"])
-            a.save
-            puts a
+          puts "#{entry["wbs"]} #{entry["key"]}"
+          a = Actual.new(:wbs=>entry["wbs"], :key=>entry["key"], :hours=>entry["hours"])
+          a.save
+        end
+
+        # assess which entries come need to be associated
+        Project.active.each do |project|
+          a = Actual.where("wbs LIKE ?", "#{project.wbs}%")
+          a.each do |actual|
+            puts "#{actual.id} #{project}"
+            actual.project = project
+            actual.save
           end
+        end
+
+        Resource.active.each do |resource|
+           a = Actual.where("key LIKE ?", "#{resource.key}%")
+           a.each do |actual|
+             puts "#{actual.id} #{resource}"
+             actual.resource = resource
+             actual.save
+           end
         end
       end
 
@@ -30,7 +46,7 @@ module GoMatsuoka
             obj = Object::const_get(model)
             line = line.to_hash
             associated = Hash.new
-            ["resource_type", "project_type", "resource", "project"].each do |assoc_obj|
+            ["resource_type", "project_type", "resource", "project", "service"].each do |assoc_obj|
               unless line[assoc_obj].nil? || line[assoc_obj].empty?
                 assoc_class = Object::const_get(assoc_obj.camelize)
                 associated[assoc_obj] = assoc_class.find_by_short_name(line[assoc_obj])
@@ -68,9 +84,12 @@ module GoMatsuoka
         source.planned_commitments.find_or_create_by(dest.class.to_s.downcase.to_sym => dest)
       end
 
+      # Does a bulk import of data into the db
+      # expects a directory of csvs named by model: resource_type, project_type, project, resource, planned_commitment
+      # bulk_import :from=>"path" eg bulk_import :from=>"/Users/foo/"
       def self.bulk_import(params)
         data_file_dir = params[:from]
-        import_order = ["resource_type", "project_type", "project", "resource", "planned_commitment"]
+        import_order = ["resource_type", "project_type", "project", "resource", "planned_commitment", "service", "service_commitment"]
         import_order.each do |model|
           data_file_full_path = data_file_dir + model.pluralize + ".csv"
           if File.exists?(data_file_full_path)
