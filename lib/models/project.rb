@@ -1,4 +1,4 @@
-require "business_time"
+require 'business_time'
 
 class Project < ActiveRecord::Base
   before_save :update_calculated_fields

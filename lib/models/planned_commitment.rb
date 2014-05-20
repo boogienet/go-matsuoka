@@ -6,7 +6,7 @@ class PlannedCommitment < ActiveRecord::Base
   before_save :ensure_commitment_recorded
 
   def self.accessible_attributes
-    ["effort", "duration", "order"]
+    ['effort', 'duration', 'order']
   end
 
   def ensure_commitment_recorded
@@ -17,5 +17,4 @@ class PlannedCommitment < ActiveRecord::Base
       self.duration = 100
     end
   end
-
 end

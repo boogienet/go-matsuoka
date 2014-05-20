@@ -12,7 +12,7 @@ module GoMatsuoka
     end
 
     def data_dir
-      @_data_dir ||= File.join ENV['HOME'], File::SEPARATOR, ".gomatsuoka"
+      @_data_dir ||= File.join ENV['HOME'], File::SEPARATOR, '.gomatsuoka'
     end
 
     def data_dir=(dir)

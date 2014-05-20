@@ -15,15 +15,17 @@ module GoMatsuoka
         reload!
 
       end
+
       def reload!
-        load "gomatsuoka.rb"
-        load "console/helper.rb"
-        load "console/utility.rb"
-        load "console/displayer.rb"
-        load "console/generator.rb"
+        load 'gomatsuoka.rb'
+        load 'console/helper.rb'
+        load 'console/utility.rb'
+        load 'console/displayer.rb'
+        load 'console/generator.rb'
         @_app = GoMatsuoka::Application.new
         setup
       end
+
       def setup
         build_easy_access(Resource)
         build_easy_access(Project)
@@ -34,6 +36,7 @@ module GoMatsuoka
       def generate
         Generator
       end
+
       def help_me
         Helper
       end
@@ -41,6 +44,7 @@ module GoMatsuoka
       def app
         @_app ||= GoMatsuoka::Application.new
       end
+
       def app=(a)
         @app = a
       end
@@ -48,7 +52,7 @@ module GoMatsuoka
       # create an instance variable for each object from the short name
       def build_easy_access(clss)
         clss.active.each do |object_instance|
-          if object_instance.respond_to?("short_name=")
+          if object_instance.respond_to?('short_name=')
             unless object_instance.short_name.empty?
               short_name = object_instance.short_name
               self.class.send(:attr_accessor, short_name)
@@ -59,7 +63,7 @@ module GoMatsuoka
       end
 
       def _start
-        self.initialize
+        initialize
         Ripl.config[:prompt] = lambda { "#{Dir.pwd} [#{GoMatsuoka.env}] > " }
         Ripl.start :binding => binding
       end
